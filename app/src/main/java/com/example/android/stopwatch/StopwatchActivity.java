@@ -1,6 +1,7 @@
 package com.example.android.stopwatch;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +17,17 @@ public class StopwatchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stopwatch);
+        if (savedInstanceState!=null){
+            running = savedInstanceState.getBoolean("running");
+            seconds = savedInstanceState.getInt("seconds");
+        }
         runTimer();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle){
+        bundle.putInt("seconds",seconds);
+        bundle.putBoolean("running", running);
     }
 
     public void onStart(View view) {
